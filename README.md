@@ -40,7 +40,7 @@ SecurityEvent
 
 ## Analytics Rule Configuration
 
-![Analytics Rule](screenshots/analytics-rule.png)
+![Analytics Rule](queries/analytics-rule.png)
 
 ## Skills Demonstrated
 - SIEM monitoring
