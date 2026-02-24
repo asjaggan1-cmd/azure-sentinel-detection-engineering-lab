@@ -42,6 +42,10 @@ SecurityEvent
 
 ![Analytics Rule](analytics-rule.png)
 
+## Log Incident
+
+![Incident Trigger](incident-triggered.png)
+
 ## Skills Demonstrated
 - SIEM monitoring
 - Threat detection logic
