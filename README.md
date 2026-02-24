@@ -36,7 +36,7 @@ SecurityEvent
 ---
 ## Detection Output
 
-![Detection Result](incident-triggered.png)
+![Detection Result](bruteforce-detection.png)
 
 ## Analytics Rule Configuration
 
