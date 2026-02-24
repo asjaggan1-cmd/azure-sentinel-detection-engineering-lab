@@ -36,7 +36,7 @@ SecurityEvent
 ---
 ## Detection Output
 
-![Detection Result](screenshots/detection-result.png)
+![Detection Result](incident-triggered.png)
 
 ## Analytics Rule Configuration
 
