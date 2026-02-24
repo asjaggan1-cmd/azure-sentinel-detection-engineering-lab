@@ -34,6 +34,13 @@ SecurityEvent
 - If an account exceeds 5 failures within 5 minutes, it may indicate a brute-force attack.
 
 ---
+## Detection Output
+
+![Detection Result](screenshots/detection-result.png)
+
+## Analytics Rule Configuration
+
+![Analytics Rule](screenshots/analytics-rule.png)
 
 ## Skills Demonstrated
 - SIEM monitoring
