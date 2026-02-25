@@ -1,51 +1,59 @@
- Azure Sentinel Detection Engineering Lab
-1. Project Overview
+Azure Sentinel Detection Engineering Lab
+Overview
 
-This lab simulates a Security Operations Center (SOC) use case using Microsoft Sentinel.
+This project demonstrates the implementation of a custom detection use case in Microsoft Sentinel using Microsoft Entra ID logs.
 
-The objective is to detect brute-force login activity using Kusto Query Language (KQL) and generate incidents for investigation.
+The objective is to simulate brute-force authentication attempts and validate the full incident lifecycle — from log ingestion to detection and investigation.
 
-2. Lab Architecture
+Environment
+
 Cloud Platform
-
 Microsoft Azure
 
 SIEM
-
 Microsoft Sentinel
 
-Identity Provider
-
+Identity Source
 Microsoft Entra ID
 
-Log Sources
+Log Tables Used
 
 SignInLogs
 
 AuditLogs
 
 Detection Type
-
 Scheduled Analytics Rule
 
-3. Detection Use Case: Brute Force Attack
-3.1 Detection Logic
+Detection Scenario
+Brute-Force Authentication Attempt
+
+Brute-force attacks involve repeated failed login attempts in order to gain unauthorized access to user accounts.
+
+This detection identifies excessive failed authentication attempts from a single IP address within a five-minute window.
+
+Detection Logic (KQL)
 SigninLogs
 | where ResultType != 0
 | summarize FailedAttempts = count() by IPAddress, UserPrincipalName, bin(TimeGenerated, 5m)
 | where FailedAttempts >= 5
 
-This query identifies multiple failed login attempts from the same IP address within a five-minute window.
+Logic Explanation
 
-3.2 MITRE ATT&CK Mapping
+Filters failed sign-in attempts
 
-Tactic: Initial Access
+Aggregates failures by IP and user
 
-Technique: Brute Force (T1110)
+Evaluates activity in 5-minute intervals
 
-4. Analytics Rule Configuration
+Triggers when threshold (≥ 5 failures) is exceeded
 
-Rule Type: Scheduled Query Rule
+MITRE ATT&CK Mapping
+Tactic	Technique	ID
+Initial Access	Brute Force	T1110
+Analytics Rule Configuration
+
+Rule Type: Scheduled Query
 
 Severity: Medium
 
@@ -55,21 +63,21 @@ Lookup Period: 5 minutes
 
 Incident Creation: Enabled
 
-5. Incident Workflow
+Incident Lifecycle
 
 Multiple failed login attempts were simulated.
 
-The analytics rule evaluated SignInLogs.
+The analytics rule evaluated incoming SignInLogs.
 
-The rule threshold condition was met.
+Threshold condition was met.
 
-An incident was generated in Microsoft Sentinel.
+An incident was automatically generated.
 
 Entity mapping and timeline were reviewed during investigation.
 
-6. Evidence
-6.1 Analytics Rule
+Evidence
+Analytics Rule Configuration
 
-6.2 Detection Query Results
+Query Results
 
-6.3 Incident Triggered
+Incident Generated
