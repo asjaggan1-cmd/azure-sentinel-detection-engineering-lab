@@ -1,49 +1,75 @@
  Azure Sentinel Detection Engineering Lab
- Project Overview
+1. Project Overview
 
 This lab simulates a Security Operations Center (SOC) use case using Microsoft Sentinel.
 
-The objective is to detect brute-force login activity using KQL (Kusto Query Language) and generate incidents for investigation.
+The objective is to detect brute-force login activity using Kusto Query Language (KQL) and generate incidents for investigation.
 
- Lab Architecture
+2. Lab Architecture
+Cloud Platform
 
-Cloud Platform: Microsoft Azure
+Microsoft Azure
 
-SIEM: Microsoft Sentinel
+SIEM
 
-Log Sources: Entra ID
+Microsoft Sentinel
 
-Tables Used: SignInLogs, AuditLogs
+Identity Provider
 
-Detection Type: Scheduled Analytics Rule
+Microsoft Entra ID
 
- Detection Use Case – Brute Force Attack
- Detection Logic
+Log Sources
+
+SignInLogs
+
+AuditLogs
+
+Detection Type
+
+Scheduled Analytics Rule
+
+3. Detection Use Case: Brute Force Attack
+3.1 Detection Logic
 SigninLogs
 | where ResultType != 0
 | summarize FailedAttempts = count() by IPAddress, UserPrincipalName, bin(TimeGenerated, 5m)
 | where FailedAttempts >= 5
- MITRE ATT&CK Mapping
 
-Initial Access
+This query identifies multiple failed login attempts from the same IP address within a five-minute window.
 
-Brute Force (T1110)
+3.2 MITRE ATT&CK Mapping
 
- Incident Workflow
+Tactic: Initial Access
 
-Multiple failed logins simulated
+Technique: Brute Force (T1110)
 
-Analytics rule triggered
+4. Analytics Rule Configuration
 
-Incident generated in Sentinel
+Rule Type: Scheduled Query Rule
 
-Entity mapping reviewed
+Severity: Medium
 
-Investigation timeline analyzed
+Query Frequency: 5 minutes
 
- Evidence
-Analytics Rule
+Lookup Period: 5 minutes
 
-Detection Query Result
+Incident Creation: Enabled
 
-Incident Triggered
+5. Incident Workflow
+
+Multiple failed login attempts were simulated.
+
+The analytics rule evaluated SignInLogs.
+
+The rule threshold condition was met.
+
+An incident was generated in Microsoft Sentinel.
+
+Entity mapping and timeline were reviewed during investigation.
+
+6. Evidence
+6.1 Analytics Rule
+
+6.2 Detection Query Results
+
+6.3 Incident Triggered
