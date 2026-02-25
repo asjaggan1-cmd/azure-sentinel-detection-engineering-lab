@@ -1,51 +1,51 @@
-Azure Sentinel Detection Engineering Lab
+# Azure Sentinel Detection Engineering Lab
 
-Overview
+# Overview
 
-# This project demonstrates the implementation of a custom detection use case in Microsoft Sentinel using Microsoft Entra ID logs.
-# The objective is to simulate brute-force authentication attempts and validate the full incident lifecycle — from log ingestion to detection and investigation.
+This project demonstrates the implementation of a custom detection use case in Microsoft Sentinel using Microsoft Entra ID logs.
+The objective is to simulate brute-force authentication attempts and validate the full incident lifecycle — from log ingestion to detection and investigation.
 
-Environment
+# Environment
 
-# Cloud Platform
-# Microsoft Azure
+Cloud Platform
+Microsoft Azure
 
-SIEM
+# SIEM
 
-# Microsoft Sentinel
+Microsoft Sentinel
 
-Identity Source
+# Identity Source
 
-# Microsoft Entra ID
+Microsoft Entra ID
 
-Log Tables Used
+# Log Tables Used
 
-# SignInLogs
-# AuditLogs
+SignInLogs
+AuditLogs
 
-Detection Type
+# Detection Type
 
-# Scheduled Analytics Rule
+Scheduled Analytics Rule
 
-Detection Scenario
+# Detection Scenario
 
-# Brute-Force Authentication Attempt
+Brute-Force Authentication Attempt
 Brute-force attacks involve repeated failed login attempts in order to gain unauthorized access to user accounts.
 This detection identifies excessive failed authentication attempts from a single IP address within a five-minute window.
 
-Detection Logic (KQL)
+# Detection Logic (KQL)
 
-# SigninLogs
+SigninLogs
 | where ResultType != 0
 | summarize FailedAttempts = count() by IPAddress, UserPrincipalName, bin(TimeGenerated, 5m)
 | where FailedAttempts >= 5
 
-Logic Explanation
+# Logic Explanation
 
-# Filters failed sign-in attempts
-# Aggregates failures by IP and user
-# Evaluates activity in 5-minute intervals
-# Triggers when threshold (≥ 5 failures) is exceeded
+Filters failed sign-in attempts
+Aggregates failures by IP and user
+Evaluates activity in 5-minute intervals
+Triggers when threshold (≥ 5 failures) is exceeded
 
 
 Rule Type: Scheduled Query
@@ -58,16 +58,16 @@ Lookup Period: 5 minutes
 
 Incident Creation: Enabled
 
-Incident Lifecycle
+# Incident Lifecycle
 
-# Multiple failed login attempts were simulated.
-# The analytics rule evaluated incoming SignInLogs.
-# Threshold condition was met.
-# An incident was automatically generated.
-# Entity mapping and timeline were reviewed during investigation.
+Multiple failed login attempts were simulated.
+The analytics rule evaluated incoming SignInLogs.
+Threshold condition was met.
+An incident was automatically generated.
+Entity mapping and timeline were reviewed during investigation.
 
-Evidence
+# Evidence
 
-# Analytics Rule Configuration
-# Query Results
-# Incident Generated
+Analytics Rule Configuration
+Query Results
+Incident Generated
