@@ -1,53 +1,49 @@
-# Azure Sentinel SOC Lab – Brute Force Detection
+ Azure Sentinel Detection Engineering Lab
+ Project Overview
 
-## Project Overview
-This project simulates a Security Operations Center (SOC) use case using Microsoft Sentinel.  
-The goal is to detect brute-force login attempts using KQL (Kusto Query Language).
+This lab simulates a Security Operations Center (SOC) use case using Microsoft Sentinel.
 
----
+The objective is to detect brute-force login activity using KQL (Kusto Query Language) and generate incidents for investigation.
 
-## Tools Used
-- Microsoft Sentinel
-- Azure Log Analytics Workspace
-- KQL (Kusto Query Language)
+ Lab Architecture
 
----
+Cloud Platform: Microsoft Azure
 
-## Detection Use Case: Brute Force Attack
+SIEM: Microsoft Sentinel
 
-### Objective
-Identify accounts with more than 5 failed login attempts within a 5-minute window.
+Log Sources: Entra ID
 
-### KQL Query
-```kql
-SecurityEvent
-| where EventID == 4625
-| summarize FailedAttempts = count() by Account, bin(TimeGenerated, 5m)
-| where FailedAttempts > 5
-```
+Tables Used: SignInLogs, AuditLogs
 
----
+Detection Type: Scheduled Analytics Rule
 
-## Detection Logic Explanation
-- EventID 4625 represents failed login attempts.
-- The query counts failed logins per account.
-- If an account exceeds 5 failures within 5 minutes, it may indicate a brute-force attack.
+ Detection Use Case – Brute Force Attack
+ Detection Logic
+SigninLogs
+| where ResultType != 0
+| summarize FailedAttempts = count() by IPAddress, UserPrincipalName, bin(TimeGenerated, 5m)
+| where FailedAttempts >= 5
+ MITRE ATT&CK Mapping
 
----
-## Detection Output
+Initial Access
 
-![Detection Result](bruteforce-detection.png)
+Brute Force (T1110)
 
-## Analytics Rule Configuration
+ Incident Workflow
 
-![Analytics Rule](analytics-rule.png)
+Multiple failed logins simulated
 
-## Log Incident
+Analytics rule triggered
 
-![Incident Trigger](incident-triggered.png)
+Incident generated in Sentinel
 
-## Skills Demonstrated
-- SIEM monitoring
-- Threat detection logic
-- KQL query writing
-- Security analysis mindset
+Entity mapping reviewed
+
+Investigation timeline analyzed
+
+ Evidence
+Analytics Rule
+
+Detection Query Result
+
+Incident Triggered
