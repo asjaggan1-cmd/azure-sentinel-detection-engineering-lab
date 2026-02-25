@@ -35,7 +35,7 @@
 
 # Detection Logic (KQL)
 
-SigninLogs
+- SigninLogs
 - | where ResultType != 0
 - | summarize FailedAttempts = count() by IPAddress, UserPrincipalName, bin(TimeGenerated, 5m)
 - | where FailedAttempts >= 5
